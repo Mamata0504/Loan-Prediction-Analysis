@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ 
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div style="color:black" >
+        <form action="{{ url_for('predict')}}" method="post">
+            <h2>Loan Prediction</h2>
+            <table border=1 id="#box">
+            <tr>
+            <td>Loan Amount</td>
+            <td><input id="first" name="loan_amnt" type="number"></td>
+            </tr>
+            <tr>
+            <td>Term (36 Months:0,60 Months:1)</td>
+            <td><input id="second" name="term" required="required"></td>
+            </tr>
+            <tr>
+            <td>Interest Rate %</td>
+            <td><input id="third" name="int_rate" required="required"></td>
+            </tr>
+            <tr>
+            <td>Employee Length (0-10)</td>
+            <td><input id="fourth" name="emp_length" required="required"></td>
+            </tr>
+            <tr>
+            <td>Home Ownership('RENT':5, 'OWN':4, 'MORTGAGE':3, 'OTHER':2, 'ANY':1)</td>
+            <td><input id="fifth" name="home_ownership" required="required"></td>
+            </tr>
+            <tr>
+            <td>Annual Income</td>
+            <td><input id="sixth" name="annual_inc" required="required"></td>
+            </tr>
+            <tr>
+            <td>Purpose('credit_card':1, 'car':0, 'small_business':11, 'other':9, 'wedding':13,
+                'debt_consolidation':2, 'home_improvement':4, 'major_purchase':6,
+                'medical':7, 'moving':8, 'vacation':12, 'house':5, 'renewable_energy':10,
+                'educational':13)</td>
+            <td><input id="seventh" name="purpose" required="required"></td>
+            </tr>
+            <tr>
+            <td>State ('AZ':3, 'GA':10, 'IL':14, 'CA':4, 'TX':42, 'VA':44, 'MO':24,
+                'CT':6, 'UT':43, 'FL':9, 'NY':33,'PA':37, 'MN':23, 'NJ':30, 'OR':36, 
+                'KY':17, 'OH':34, 'SC':39, 'RI':38,LA':18, 'MA':19, 'WA':46,'WI':47, 
+                'AL':1, 'NV':32, 'CO':5, 'MD':20, 
+                'WV':48, 'VT':45, 'MI':22, 'DC':7, 'SD':40, 'NC':27,'AR':2, 'KS':16,
+                'NM':31, 'HI':11, 'AK':0, 'OK':35, 'MT':26, 'WY':49, 'NH':29, 'DE':8,
+                'MS':25,'TN':41, 'IA':12, 'NE':28, 'ID':13, 'IN':15, 'ME':21) </td>
+            <td><input id="eighth" name="addr_state" required="required"></td>
+            </tr>
+            <tr>
+            <td>Debt to Income Ratio</td>
+            <td><input id="ninth" name="dti" required="required"></td>
+            </tr>
+            <tr>
+            <td>Delay in 2 Years(0-16)</td>
+            <td><input id="tenth" name="delinq_2yrs" required="required"></td>
+            </tr>
+            <tr>
+            <td>Revolutionary Utilization</td>
+            <td><input id="eleventh" name="revol_util" required="required"></td>
+            </tr>
+            <tr>
+            <td>Total Account</td>
+            <td><input id="fourteenth" name="total_acc" required="required"></td>
+            </tr>
+            <tr>
+            <td>Longest Credit Length</td>
+            <td><input id="twelveth" name="longest_credit_length" required="required"></td>
+            </tr>
+            <tr>
+            <td>Verification Status (0/1)</td>
+            <td><input id="thirteenth" name="verification_status" required="required"></td>
+            </tr>
+            <tr>
+             <td><button id="sub" type="submit" name="submit" value="Predict"></button></td>
+            </table>
+        </form>
+        <br><h3>{{ prediction_text }}<h3>
+    </div>
+	
+	<style>
+		body {
+			background-image: url("../static/images/bank1.jpg");
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: 100% 100%
+			}
+	</style>
+
+
+
+    <style>
+        body {
+            background-color: transparent;
+            text-align: center;
+            padding: 0px;
+        }
+        
+        #research {
+            font-size: 28px;
+            width: 100px;
+            height: 23px;
+            top: 23px;
+        }
+        
+        #box {
+            border-radius: 60px;
+            border-color: 45px;
+            border-style: solid;
+            font-family: cursive;
+            text-align: center;
+            background-color: rgb(168, 131, 61);
+            font-size: medium;
+            position: absolute;
+            width: 700px;
+            bottom: 9%;
+            height: 850px;
+            right: 30%;
+            padding: 0px;
+            margin: 0px;
+            font-size: 14px;
+        }
+        
+        #fuel {
+            width: 83px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 20px;
+        }
+        
+        #fuel:hover {
+            background-color: transparent;
+        }
+        
+        #research {
+            width: 99px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 18px;
+        }
+        
+        #research:hover {
+            background-color: transparent;
+        }
+        
+        #resea {
+            width: 99px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 18px;
+        }
+        
+        #resea:hover {
+            background-color: transparent;
+        }
+        
+        #sub {
+            width: 120px;
+            height: 43px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 18px;
+        }
+        
+        #sub:hover {
+            background-color: darkcyan;
+        }
+        
+        #first {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        #second {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        #third {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        #fourth {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+</body>
+
+</html>
